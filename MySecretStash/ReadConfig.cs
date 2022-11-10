@@ -11,8 +11,9 @@
     {
         public static string[] Read()
         {
-            // Get ProjectName
+            // Hämtar projektets namn
             string projectName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            // Skickar in filnamn på konfigurationsfilen
             return Read(projectName);
         }
 
@@ -24,16 +25,21 @@
             var path = Path.Combine(docs, "Passwordz", filename+".txt");
             if (File.Exists(path))
             {
+                // Om filen finns, läs in den
                 return File.ReadAllLines(path);
             }
             else
             {
+                // Annars skapa en ny fil
+                // Skapa sökväg för mappen i dokumenten
                 var folder = Path.GetDirectoryName(path);
+                // Skapa mappen om den inte finns
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
                 }
                 
+                // Skapa en dummy fil
                 File.WriteAllText(path,"\nLägg dina passwods här");
                 return new string[0];
             }
